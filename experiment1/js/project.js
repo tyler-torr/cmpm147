@@ -33,20 +33,20 @@ function main() {
 // let's get this party started - uncomment me
 const fillers = {
   superhero_adjective: ["The $superhero_adjective", "$superhero_adjective Prime", "Heroic", "Lovely", "Smashing", "Omega", "Super", "Enjoyable", "Home", "Savior", "Strong", "Creative", "Fast", "Delicious", "Cracked"],
-  superhero_noun: ["Pencil", "$superhero_noun and $superhero_noun", "Yummerton", "Growler", "$super_heroadjective", "Chef", "name_not_found_err.404 (If you're seeing this, something went wrong in the name generation!)", "Generic Man", "Frumpleton", "Cat", "Pluto", "Skin", "Scissors", "Paper", "Rock"],
-  supervillain_adjective: ["The $superhero_adjective", "$superhero_adjective Gigamax", "Nefarious", "Unlovely", "Smashing", "Destructioner", "Mean", "Punching", "Homewrecker", "Super DUPER Evil", "Super Evil", "Evil", "GRRRRR!!! I'm EVIL!!!!!!", "Not So Delicious", "amgonsu"],
-  supervillain_noun: ["Pencil", "$superhero_noun and $superhero_noun", "Yummerton", "Growler", "$super_heroadjective", "Chef", "name_not_found_err.404 (If you're seeing this, something went wrong in the name generation!)", "Generic Man", "Frumpleton", "Cat", "Pluto", "Skin", "Scissors", "Paper", "Rock"],
+  superhero_noun: ["Pencil", "$superhero_noun and $superhero_noun", "Yummerton", "Growler", "$superhero_adjective", "Chef", "name_not_found_err.404 (If you're seeing this, something went wrong in the name generation! (No I'm just kidding))", "Generic Man", "Frumpleton", "Cat", "Pluto", "Skin", "Scissors", "Paper", "Rock"],
+  supervillain_adjective: ["The $supervillain_adjective", "$supervillain_adjective Gigamax", "Nefarious", "Unlovely", "Smashing", "Destructioner", "Mean", "Punching", "Homewrecker", "Super DUPER Evil", "Super Evil", "Evil", "GRRRRR!!! I'm EVIL!!!!!!", "Not So Delicious", "amgonsu"],
+  supervillain_noun: ["Pencil", "$superhero_noun and $superhero_noun", "Yummerton", "Growler", "$superhero_adjective", "Chef", "name_not_found_err.404 (If you're seeing this, something went wrong in the name generation!)", "Generic Man", "Frumpleton", "Cat", "Pluto", "Skin", "Scissors", "Paper", "Rock"],
   evil_verbing: ["tickling", "impostering", "cooking","shoving", "hiding", "grounding", "killing"],
   evil_nouns: ["dogs", "babies", "elderly people", "iHOPs", "countries", "worms", "busses", "human children", "duck children", "ducks", "clones of $superhero_adjective $superhero_noun", "帥氣"],
-  superpower_verbing: ["munching", "living", "verbing", "eating", "sleeping", "super DUPER kicking", "kicking", "hugging", "yelling", "punching", "tickling", "shooting"],
-  superpower_nouning: ["laserbeams", "me", "iHOP pancakes", "LEGOs", "pencils", "disjointed thumbs", "Coldplay CDs", "television sets", "other superheroes"],
+  superpower_verb: ["munching", "living", "verbing", "eating", "sleeping", "super DUPER kicking", "kicking", "hugging", "yelling", "punching", "tickling", "shooting"],
+  superpower_noun: ["laserbeams", "me", "iHOP pancakes", "LEGOs", "pencils", "disjointed thumbs", "Coldplay CDs", "television sets", "other superheroes"],
   ending: ["- oh, wait, another superhero stopped them already", "they kill us all", "the McDonalds shuts down", "my morning jog at 8 AM", "my children die", "your powers disappear", "you lose your memories", "die! You're known for being really bad at this"],
   
 };
 
 const template = `Oh thank goodness you're here, $superhero_adjective $superhero_noun!
 
-You have to help us! $supervillain_adjective $supervillain_noun is wrecking havoc by $super_verbing all of the $evil_nouns! Quick, you must go $superpower_verbing $superpower_nouning to save us!
+You have to help us! $supervillain_adjective $supervillain_noun is wrecking havoc by $evil_verbing all of the $evil_nouns! Quick, you must go and $superpower_verb $superpower_noun to save us!
 
 Hurry! Before $ending.
 `;
