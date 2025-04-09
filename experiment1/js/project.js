@@ -44,11 +44,11 @@ const fillers = {
   
 };
 
-const template = `Oh thank goodness you're here, $superhero_adjective $superhero_noun!
+const template = `Oh thank goodness you're here, $superhero_adjective $superhero_noun! You're the superhero needed to save the day!
 
 You have to help us! $supervillain_adjective $supervillain_noun is wrecking havoc by $evil_verbing all of the $evil_nouns! Quick, you must go and $superpower_verb $superpower_noun to save us!
 
-Hurry! Before $ending.
+Hurry! Before $ending!
 `;
 
 
