@@ -63,6 +63,10 @@ function setup() {
     let y = random(-height, height);
     circles.push([x, y]);
   }
+  background(21, 0, 63);
+  stroke(255);
+  noFill();
+  
   moonX = random(-width/2, width/2);
   moonY = random(-height/5, -5*height/6);
 
