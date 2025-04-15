@@ -34,20 +34,21 @@ function resizeScreen() {
   // redrawCanvas(); // Redraw everything based on new size
 }
 
-let moonX;
-let moonY;
-let circles = [];
-let treeLayers = [];
-
-let spinSpeed = 0;
-let targetSpeed = 0;
-let rotationAngle = 0;
-
+// setup() function is called once when the program starts
 function setup() {
-  createCanvas(800, 800);
-  background(21, 0, 63);
-  stroke(255);
-  noFill();
+  // place our canvas, making it fit our container
+  canvasContainer = $("#canvas-container");
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  canvas.parent("canvas-container");
+  // resize canvas is the page is resized
+
+  // create an instance of the class
+  myInstance = new MyClass("VALUE1", "VALUE2");
+
+  $(window).resize(function() {
+    resizeScreen();
+  });
+  resizeScreen();
 
   for (let i = 0; i < 150; i++) {
     let x = random(-width, width);
