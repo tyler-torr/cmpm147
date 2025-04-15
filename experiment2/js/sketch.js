@@ -14,6 +14,14 @@ const VALUE2 = 2;
 let myInstance;
 let canvasContainer;
 var centerHorz, centerVert;
+let moonX;
+let moonY;
+let circles = [];
+let treeLayers = [];
+
+let spinSpeed = 0;
+let targetSpeed = 0;
+let rotationAngle = 0;
 
 class MyClass {
     constructor(param1, param2) {
