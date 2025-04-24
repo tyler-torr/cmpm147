@@ -51,6 +51,86 @@ function setup() {
   resizeScreen();
 }
 
+/* exported preload, setup, draw, placeTile */
+
+/* global generateGrid drawGrid */
+
+let seed = 0;
+let tilesetImage;
+let currentGrid = [];
+let numRows, numCols;
+
+function preload() {
+  tilesetImage = loadImage(
+    "https://cdn.glitch.com/25101045-29e2-407a-894c-e0243cd8c7c6%2FtilesetP8.png?v=1611654020438"
+  );
+}
+
+function reseed() {
+  seed = (seed | 0) + 1109;
+  randomSeed(seed);
+  noiseSeed(seed);
+  select("#seedReport").html("seed " + seed);
+  regenerateGrid();
+}
+
+function regenerateGrid() {
+  select("#asciiBox").value(gridToString(generateGrid(numCols, numRows)));
+  reparseGrid();
+}
+
+function reparseGrid() {
+  currentGrid = stringToGrid(select("#asciiBox").value());
+}
+
+function gridToString(grid) {
+  let rows = [];
+  for (let i = 0; i < grid.length; i++) {
+    rows.push(grid[i].join(""));
+  }
+  return rows.join("\n");
+}
+
+function stringToGrid(str) {
+  let grid = [];
+  let lines = str.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    let row = [];
+    let chars = lines[i].split("");
+    for (let j = 0; j < chars.length; j++) {
+      row.push(chars[j]);
+    }
+    grid.push(row);
+  }
+  return grid;
+}
+
+function setup() {
+  numCols = select("#asciiBox").attribute("rows") | 0;
+  numRows = select("#asciiBox").attribute("cols") | 0;
+
+  createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer");
+  select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
+
+  select("#reseedButton").mousePressed(reseed);
+  select("#asciiBox").input(reparseGrid);
+
+  reseed();
+}
+
+
+function draw() {
+  randomSeed(seed);
+  drawGrid(currentGrid);
+}
+
+function placeTile(i, j, ti, tj) {
+  image(tilesetImage, 16 * j, 16 * i, 16, 16, 8 * ti, 8 * tj, 8, 8);
+}
+
+
+/* exported generateGrid, drawGrid */
+/* global placeTile */
 
 function generateGrid(numCols, numRows) {
   let grid = [];
@@ -58,70 +138,62 @@ function generateGrid(numCols, numRows) {
   for (let i = 0; i < numRows; i++) {
     let row = [];
     for (let j = 0; j < numCols; j++) {
-      row.push("_");
+      let rvalue = noise(i / 10, j / 5);
+      if (rvalue > 0.5) {
+        row.push("_");
+      }
+      else if (rvalue > 0.2 && rvalue <= 0.5) {
+        row.push("/");
+      }
+      else {
+        row.push("~");
+      }
     }
     grid.push(row);
   }
+    
+  // Designate a random region full of '.'s
+  let regionWidth = floor(random(4, 12));
+  let regionHeight = floor(random(3, 10));
   
-  // Generate dungeons
-  let roomCoords = [];
+  let regionX = floor(random(1, numCols - regionWidth))
+  let regionY = floor(random(1, numRows - regionHeight))
   
-  for (let n = 0; n < 4; n++) {
-    let regionWidth = floor(random(4, 8));
-    let regionHeight = floor(random(4, 6));
-    
-    let startX = 0, startY = 0;
-    if (n >= 2) {
-      startX = 8;
-    }
-    if (n == 1 || n == 3) {
-      startY = 8;
-    }
-
-    let regionX = floor(random(1, numCols/2 - regionWidth)) + startX;
-    let regionY = floor(random(1, numRows/2 - regionHeight)) + startY;
-
-    for (let y = regionY; y < regionY + regionHeight; y++) {
-      for (let x = regionX; x < regionX + regionWidth; x++) {
-        grid[y][x] = ".";
-      }
-    }
-    
-    let coordX = floor(random(regionX, regionX + regionWidth))
-    let coordY = floor(random(regionY, regionY + regionHeight))
-    roomCoords.push({x: coordX, y: coordY});
-  }
-  
-  // Generate hallways
-  for (let i = 0; i < roomCoords.length - 1; i++) {
-    let hallwayStart = roomCoords[i];
-    let hallwayEnd = roomCoords[(i + 1) % roomCoords.length];
-    
-    let x = hallwayStart.x;
-    let y = hallwayStart.y;
-    
-    while (x !== hallwayEnd.x) {
+  for (let y = regionY; y < regionY + regionHeight; y++) {
+    for (let x = regionX; x < regionX + regionWidth; x++) {
       grid[y][x] = ".";
-      x += x < hallwayEnd.x ? 1 : -1;
-    }
-    
-    while (y !== hallwayEnd.y) {
-      grid[y][x] = ".";
-      y += y < hallwayEnd.y ? 1 : -1;
     }
   }
   
-  // Generate dungeon walls
-  for (let i = 0; i < numRows; i++) {
-    for (let j = 0; j < numCols; j++) {
-      if (grid[i][j] == "_") {
-        if (
-          gridCheck(grid, j, i - 1, ".") ||
-          gridCheck(grid, j, i + 1, ".") ||
-          gridCheck(grid, j - 1, i, ".") ||
-          gridCheck(grid, j + 1, i, ".")
-        ) {
-          grid[i][j] = "$";
+  // Create a river that flows through
+  let riverChance = floor(random(1, 10));
+  let riverWidth = floor(random(1, 5));
+  let riverCount = 1;
+  
+  if (riverChance > 5) {
+    riverCount++;
+    if (riverChance > 8) {
+      riverCount++;
+    }
+  }
+  
+  for (let r = 0; r < riverCount; r++) {
+    let startRow = floor(random(2, numCols - riverWidth));
+    let curveLeft = true;
+    if (random(1, 10) < 5) {
+      curveLeft = false;
+    }
+    for (let i = 0; i < numRows; i++) {
+      for (let w = 0; w < riverWidth; w++) {
+        grid[i][startRow + w] = "w";
+        if (random(1, 10) > 8) {
+          if (curveLeft) {
+            startRow++;
+            grid[i][startRow + w] = "w";
+          } else {
+            startRow--;
+            grid[i][startRow] = "w";
+          }
         }
       }
     }
@@ -136,15 +208,17 @@ function drawGrid(grid) {
   for(let i = 0; i < grid.length; i++) {
     for(let j = 0; j < grid[i].length; j++) {
       if (gridCheck(grid, i, j, "_")) {
-        placeTile(i, j, 0, 22); // Dungeon generic
+        placeTile(i, j, (floor(random(4))), 0); // Grass floor
         if (random() < 0.15) {
-          placeTile(i, j, 11, floor(random(4)) + 21); // Dungeonn generic
+          placeTile(i, j, 18, 0); // Trees
+        } else if (random() < 0.151 && random() > 0.15) {
+          placeTile(i, j, 26, 0); // House
         }
       }
       else if (gridCheck(grid, i, j, ".")) {
-        placeTile(i, j, 0, 23); // Dungeon opening
-        if (random() < 0.01) {
-          placeTile(i, j, floor(random(3)), 28); // Chest!
+        placeTile(i, j, (floor(random(4))), 1); // Darker grass
+        if (random() < 0.9) {
+          placeTile(i, j, 18, 0); // Trees
         }
       }
       else if (gridCheck(grid, i, j, "~")) {
@@ -156,12 +230,10 @@ function drawGrid(grid) {
       else if (gridCheck(grid, i, j, "/")) {
         placeTile(i, j, (floor(random(4))), 1); // Darker grass
       }
-      else if (gridCheck(grid, i, j, "$")) {
-        if (random() < 0.75) {
-          placeTile(i, j, 1, floor(random(4)) + 21); // Dungeon walls
-        } else {
-          placeTile(i, j, 11, floor(random(4)) + 21); // Dungeon walls
-        }
+      else if (gridCheck(grid, i, j, "w")) {
+        // Animate water
+        let frame = floor(millis() / 1000) % 2
+        placeTile(i, j, (floor(random(3))) + frame, 13); // Water
       }
     }
   }
@@ -169,7 +241,7 @@ function drawGrid(grid) {
   // Simulate fog
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      let n = noise(i * 0.1, j * 0.4, millis() * 0.0005);
+      let n = noise(i * 0.1, j * 0.2, millis() * 0.0005);
       
       let fog = map(n, 0, 1, 0, 100);
       fill(0, 0, 0, fog);
