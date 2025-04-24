@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 3 - Overworld Tile Generation</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -32,7 +32,7 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 3 - Overworld Tile Generation</h1>
 
 			<div class="minor-section">
 				<div id="canvas-container">
@@ -45,17 +45,26 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>Generate a grid of tiles showing off a forest, with some scattered houses, a river, and some fog that changes the lighting over time. Reroll to see a newly generated village. An ASCII equivalent of the map is shown on the right.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>A grid of ASCII characters is first created, then using noise is changed to have different characters distributed throughout the grid. From there,
+					a square with a random starting point and size is generated, followed by one to three vertical lines of varying sizes striking through the grid. The lines can
+					shift to the left or right at random intervals.
+
+					The ASCII grid is saved and then translated into tiles using a premade tileset and some variety deciding if a tile may occasionally be a house or a tree.
+					The river is animated by changing the seed that generates the sprites of all the tiles every so often.
+
+					A map of semi-transparent darkness is drawn on top of it, using noise to randomly change the lighting of random tiles over time, simulating fog.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>While I didn't create the experiment exactly as intended (did not use some of the functions provided), I'm overall happy with the generation I ended up with,
+					especially the rivers with how varied their generation seems to be.</p>
 			</div>
 
 		</section>
