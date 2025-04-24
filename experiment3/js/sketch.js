@@ -105,8 +105,8 @@ function setup() {
 
   numCols = select("#asciiBox").attribute("rows") | 0;
   numRows = select("#asciiBox").attribute("cols") | 0;
-  
-  select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
+
+  canvas.elt.getContext("2d").imageSmoothingEnabled = false;
 
   select("#reseedButton").mousePressed(reseed);
   select("#asciiBox").input(reparseGrid);
