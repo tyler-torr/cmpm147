@@ -26,29 +26,18 @@ class MyClass {
     }
 }
 
+function preload() {
+  tilesetImage = loadImage(
+    "https://cdn.glitch.com/25101045-29e2-407a-894c-e0243cd8c7c6%2FtilesetP8.png?v=1611654020438"
+  );
+}
+
 function resizeScreen() {
   centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
   centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
   console.log("Resizing...");
   resizeCanvas(canvasContainer.width(), canvasContainer.height());
   // redrawCanvas(); // Redraw everything based on new size
-}
-
-// setup() function is called once when the program starts
-function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
 }
 
 /* exported preload, setup, draw, placeTile */
@@ -59,12 +48,6 @@ let seed = 0;
 let tilesetImage;
 let currentGrid = [];
 let numRows, numCols;
-
-function preload() {
-  tilesetImage = loadImage(
-    "https://cdn.glitch.com/25101045-29e2-407a-894c-e0243cd8c7c6%2FtilesetP8.png?v=1611654020438"
-  );
-}
 
 function reseed() {
   seed = (seed | 0) + 1109;
@@ -106,6 +89,20 @@ function stringToGrid(str) {
 }
 
 function setup() {
+  // place our canvas, making it fit our container
+  canvasContainer = $("#canvas-container");
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  canvas.parent("canvas-container");
+  // resize canvas is the page is resized
+
+  // create an instance of the class
+  myInstance = new MyClass("VALUE1", "VALUE2");
+
+  $(window).resize(function() {
+    resizeScreen();
+  });
+  resizeScreen();
+
   numCols = select("#asciiBox").attribute("rows") | 0;
   numRows = select("#asciiBox").attribute("cols") | 0;
 
