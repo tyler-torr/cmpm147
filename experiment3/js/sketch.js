@@ -105,8 +105,7 @@ function setup() {
 
   numCols = select("#asciiBox").attribute("rows") | 0;
   numRows = select("#asciiBox").attribute("cols") | 0;
-
-  createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer");
+  
   select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
 
   select("#reseedButton").mousePressed(reseed);
