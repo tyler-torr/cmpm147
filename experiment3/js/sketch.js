@@ -7,154 +7,172 @@
 
 // Constants - User-servicable parts
 // In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
-
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-
-      // Specific properties for this experiment
-      this.seed = 0;
-      this.tilesetImage = null;
-      this.currentGrid = [];
-      this.numRows = 0;
-      this.numCols = 0;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-
-    preload() {
-      this.tilesetImage = loadImage(
-        "25101045-29e2-407a-894c-e0243cd8c7c6_tileset.png"
-      );
-    }
-
-    reseed() {
-      this.seed = (this.seed | 0) + 1109;
-      randomSeed(this.seed);
-      noiseSeed(this.seed);
-      select("#seedReport").html("seed " + this.seed);
-      this.regenerateGrid();
-    }
+function generateGrid(numCols, numRows) {
+  let grid = [];
   
-    regenerateGrid() {
-      select("#asciiBox").value(this.gridToString(generateGrid(this.numCols, this.numRows)));
-      this.reparseGrid();
-    }
-  
-    reparseGrid() {
-      this.currentGrid = this.stringToGrid(select("#asciiBox").value());
-    }
-  
-    gridToString(grid) {
-      let rows = [];
-      for (let i = 0; i < grid.length; i++) {
-        rows.push(grid[i].join(""));
+  for (let i = 0; i < numRows; i++) {
+    let row = [];
+    for (let j = 0; j < numCols; j++) {
+      let rvalue = noise(i / 10, j / 5);
+      if (rvalue > 0.5) {
+        row.push("_");
       }
-      return rows.join("\n");
-    }
-  
-    stringToGrid(str) {
-      let grid = [];
-      let lines = str.split("\n");
-      for (let i = 0; i < lines.length; i++) {
-        let row = [];
-        let chars = lines[i].split("");
-        for (let j = 0; j < chars.length; j++) {
-          row.push(chars[j]);
-        }
-        grid.push(row);
+      else if (rvalue > 0.2 && rvalue <= 0.5) {
+        row.push("/");
       }
-      return grid;
+      else {
+        row.push("~");
+      }
     }
+    grid.push(row);
+  }
+    
+  // Designate a random region full of '.'s
+  let regionWidth = floor(random(4, 12));
+  let regionHeight = floor(random(3, 10));
   
-    generateGrid() {
-      let grid = [];
-      for (let i = 0; i < this.numRows; i++) {
-        let row = [];
-        for (let j = 0; j < this.numCols; j++) {
-          let rvalue = noise(i / 10, j / 5);
-          if (rvalue > 0.5) {
-            row.push("_");
-          } else if (rvalue > 0.2 && rvalue <= 0.5) {
-            row.push("/");
+  let regionX = floor(random(1, numCols - regionWidth))
+  let regionY = floor(random(1, numRows - regionHeight))
+  
+  for (let y = regionY; y < regionY + regionHeight; y++) {
+    for (let x = regionX; x < regionX + regionWidth; x++) {
+      grid[y][x] = ".";
+    }
+  }
+  
+  // Create a river that flows through
+  let riverChance = floor(random(1, 10));
+  let riverWidth = floor(random(1, 5));
+  let riverCount = 1;
+  
+  if (riverChance > 5) {
+    riverCount++;
+    if (riverChance > 8) {
+      riverCount++;
+    }
+  }
+  
+  for (let r = 0; r < riverCount; r++) {
+    let startRow = floor(random(2, numCols - riverWidth));
+    let curveLeft = true;
+    if (random(1, 10) < 5) {
+      curveLeft = false;
+    }
+    for (let i = 0; i < numRows; i++) {
+      for (let w = 0; w < riverWidth; w++) {
+        grid[i][startRow + w] = "w";
+        if (random(1, 10) > 8) {
+          if (curveLeft) {
+            startRow++;
+            grid[i][startRow + w] = "w";
           } else {
-            row.push("~");
+            startRow--;
+            grid[i][startRow] = "w";
           }
         }
-        grid.push(row);
       }
-      return grid;
     }
+  }
   
-    draw() {
-      randomSeed(this.seed);
-      drawGrid(this.currentGrid);
+  return grid;
+}
+
+function drawGrid(grid) {
+  background(128);
+
+  for(let i = 0; i < grid.length; i++) {
+    for(let j = 0; j < grid[i].length; j++) {
+      if (gridCheck(grid, i, j, "_")) {
+        placeTile(i, j, (floor(random(4))), 0); // Grass floor
+        if (random() < 0.15) {
+          placeTile(i, j, 18, 0); // Trees
+        } else if (random() < 0.151 && random() > 0.15) {
+          placeTile(i, j, 26, 0); // House
+        }
+      }
+      else if (gridCheck(grid, i, j, ".")) {
+        placeTile(i, j, (floor(random(4))), 1); // Darker grass
+        if (random() < 0.9) {
+          placeTile(i, j, 18, 0); // Trees
+        }
+      }
+      else if (gridCheck(grid, i, j, "~")) {
+        placeTile(i, j, (floor(random(4))), 6); // Darker grass
+        if (random() < 0.1) {
+          placeTile(i, j, 18, 6); // Darker trees
+        }
+      }
+      else if (gridCheck(grid, i, j, "/")) {
+        placeTile(i, j, (floor(random(4))), 1); // Darker grass
+      }
+      else if (gridCheck(grid, i, j, "w")) {
+        // Animate water
+        let frame = floor(millis() / 1000) % 2
+        placeTile(i, j, (floor(random(3))) + frame, 13); // Water
+      }
     }
+  }
   
-    placeTile(i, j, ti, tj) {
-      image(this.tilesetImage, 16 * j, 16 * i, 16, 16, 8 * ti, 8 * tj, 8, 8);
+  // Simulate fog
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      let n = noise(i * 0.1, j * 0.2, millis() * 0.0005);
+      
+      let fog = map(n, 0, 1, 0, 100);
+      fill(0, 0, 0, fog);
+      noStroke();
+      rect(i * 16, j * 16, 16, 16);
     }
+  }
 }
 
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
+function gridCheck(grid, i, j, target) {
+  if ((i < 0 || i >= grid.length) || (j < 0 || j >= grid[0].length)) {
+    return false;
+  }
+  return grid[i][j] === target;
 }
 
-// setup() function is called once when the program starts
-function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-  myInstance.preload();
-
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
+function gridCode(grid, i, j, target) {
+  
+  let northBit = 0, southBit = 0, eastBit = 0, westBit = 0
+  
+  if (gridCheck(grid, i - 1, j, target)) {
+    northBit = 1;
+  }
+  if (gridCheck(grid, i + 1, j, target)) {
+    southBit = 1;
+  }
+  if (gridCheck(grid, i, j + 1, target)) {
+    eastBit = 1;
+  }
+  if (gridCheck(grid, i, j - 1, target)) {
+    westBit = 1;
+  }
+  return (northBit<<0)+(southBit<<1)+(eastBit<<2)+(westBit<<3);
 }
 
-// draw() function is called repeatedly, it's the main animation loop
-function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
-
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
-
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+function drawContext(grid, i, j, target, dti, dtj) {
+  const code = gridCode(grid, i, j, target);
+  const [tiOffset, tjOffset] = lookup[code];
+  placeTile(i, j, dti + tiOffset, dtj + tjOffset);
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
-}
+const lookup = [
+  [1,1],
+  [1,0],
+  [1,2],
+  [1,1],
+  [0,1],
+  [0,0],
+  [0,2],
+  [0,1],
+  [2,1],
+  [2,0],
+  [2,2],
+  [2,1],
+  [1,1],
+  [1,0],
+  [1,2],
+  [1,1]
+];
