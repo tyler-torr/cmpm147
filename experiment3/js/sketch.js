@@ -86,28 +86,14 @@ function stringToGrid(str) {
 
 // setup() function is called once when the program starts
 function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
+  numCols = p.select("#asciiBox1").attribute("rows") | 0;
+  numRows = p.select("#asciiBox1").attribute("cols") | 0;
 
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
+  p.createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer1");
+  p.select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
 
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
-
-  numCols = select("#asciiBox").attribute("rows") | 0;
-  numRows = select("#asciiBox").attribute("cols") | 0;
-
-  createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer");
-  select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
-
-  select("#reseedButton").mousePressed(reseed);
-  select("#asciiBox").input(reparseGrid);
+  p.select("#reseedButton1").mousePressed(reseed);
+  p.select("#asciiBox1").input(reparseGrid);
 
   reseed();
 }
@@ -117,53 +103,11 @@ function draw() {
   drawGrid(currentGrid);
 }
 
-function placeTile(i, j, ti, tj) {
-  image(tilesetImage, 16 * j, 16 * i, 16, 16, 8 * ti, 8 * tj, 8, 8);
-}
-
-function gridCode(grid, i, j, target) {
-  
-  let northBit = 0, southBit = 0, eastBit = 0, westBit = 0
-  
-  if (gridCheck(grid, i - 1, j, target)) {
-    northBit = 1;
-  }
-  if (gridCheck(grid, i + 1, j, target)) {
-    southBit = 1;
-  }
-  if (gridCheck(grid, i, j + 1, target)) {
-    eastBit = 1;
-  }
-  if (gridCheck(grid, i, j - 1, target)) {
-    westBit = 1;
-  }
-  return (northBit<<0)+(southBit<<1)+(eastBit<<2)+(westBit<<3);
-}
-
 function drawContext(grid, i, j, target, dti, dtj) {
   const code = gridCode(grid, i, j, target);
   const [tiOffset, tjOffset] = lookup[code];
   placeTile(i, j, dti + tiOffset, dtj + tjOffset);
 }
-
-const lookup = [
-  [1,1],
-  [1,0],
-  [1,2],
-  [1,1],
-  [0,1],
-  [0,0],
-  [0,2],
-  [0,1],
-  [2,1],
-  [2,0],
-  [2,2],
-  [2,1],
-  [1,1],
-  [1,0],
-  [1,2],
-  [1,1]
-];
 
 function generateGrid(numCols, numRows) {
   let grid = [];
