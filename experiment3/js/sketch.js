@@ -76,6 +76,9 @@ function stringToGrid(str) {
 }
 
 
+
+
+
 // setup() function is called once when the program starts
 function setup() {
   numCols = select("#asciiBox").attribute("rows") | 0;
