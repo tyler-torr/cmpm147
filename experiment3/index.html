@@ -20,12 +20,14 @@
 	<!-- Load p5.js library -->
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
 
-	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
-    <script type="text/javascript" src="../js/site.js" DEFER></script>
-	<!-- Use me for a JavaScript OOP Project -->
-	<script type="text/javascript" src="./js/project.js" DEFER></script>
-	<!-- Use me for a p5.js project -->
-	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"
+      integrity="sha512-b/htz6gIyFi3dwSoZ0Uv3cuv3Ony7EeKkacgrcVg8CMzu90n777qveu0PBcbZUA7TzyENGtU+qZRuFAkfqgyoQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/project.js"></script>
+  	<script src="./js/sketch.js"></script>
+    <!-- <script src="./js/solution2.js" defer></script> -->
 </head>
 <body>
 	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
@@ -38,11 +40,11 @@
 				<button id="reseedButton">
 					Reseed
 				</button>
-				<span id="seedReport"></span>
-				<textarea id="asciiBox" rows="10" cols="50"></textarea>
-				<div id="canvas-container">
-					<!-- canvas will be added here -->
-				</div>
+				<span id=""></span>
+				<hr />
+				<span id="canvasContainer" style="margin: 10px;"></span>
+				<textarea cols="20" rows="20" id="asciiBox1" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
+				
                 <div class="fullscreen-box">
                     <button id="fullscreen">Fullscreen</button>
                 </div>
