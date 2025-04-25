@@ -86,14 +86,14 @@ function stringToGrid(str) {
 
 // setup() function is called once when the program starts
 function setup() {
-  numCols = p.select("#asciiBox").attribute("rows") | 0;
-  numRows = p.select("#asciiBox").attribute("cols") | 0;
+  numCols = select("#asciiBox").attribute("rows") | 0;
+  numRows = select("#asciiBox").attribute("cols") | 0;
 
-  p.createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer1");
-  p.select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
+  createCanvas(16 * numCols, 16 * numRows).parent("canvasContainer1");
+  select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
 
-  p.select("#reseedButton1").mousePressed(reseed);
-  p.select("#asciiBox").input(reparseGrid);
+  select("#reseedButton1").mousePressed(reseed);
+  select("#asciiBox").input(reparseGrid);
 
   reseed();
 }
