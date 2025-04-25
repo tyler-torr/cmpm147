@@ -7,28 +7,11 @@
 
 // Constants - User-servicable parts
 // In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
 
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
 let seed = 0;
 let tilesetImage;
 let currentGrid = [];
 let numRows, numCols;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
 
 function preload() {
   tilesetImage = loadImage(
