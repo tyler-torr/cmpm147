@@ -27,6 +27,7 @@ const sketch3 = (p) => {
 		p.box(50); // no conflict because it's instance-based
 	};
 };
+new p5(sketch1, 'canvas-container-3');
 
 function p3_preload() {}
 
