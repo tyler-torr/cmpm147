@@ -74,38 +74,43 @@
 	</main>
 
 	<script>
+		let currentProject = 0;
+		let currentP5Instance = null;
+	
 		const projects = [
 			{
 				canvasId: "canvas-container",
-				script: "js/sketch1.js"
+				sketch: sketch1
 			},
 			{
 				canvasId: "canvas-container-2",
-				script: "js/sketch2.js"
+				sketch: sketch2
 			},
 			{
 				canvasId: "canvas-container-3",
-				script: "js/sketch3.js"
+				sketch: sketch3
 			}
 		];
-		let currentProject = 0;
-
+	
 		function updateProjectVisibility() {
 			projects.forEach((p, i) => {
 				document.getElementById(p.canvasId).style.display = i === currentProject ? "block" : "none";
 			});
-			
-			const script = document.createElement('script');
-			script.src = projects[currentProject].script;
-			document.body.appendChild(script);
+	
+			if (currentP5Instance) {
+				currentP5Instance.remove();
+			}
+	
+			const canvasParent = document.getElementById(projects[currentProject].canvasId);
+			currentP5Instance = new p5(projects[currentProject].sketch, canvasParent);
 		}
-
+	
 		document.getElementById("toggle-projects").addEventListener("click", () => {
 			currentProject = (currentProject + 1) % projects.length;
 			updateProjectVisibility();
 		});
-
-		updateProjectVisibility();
-	</script>
+	
+		window.onload = updateProjectVisibility;
+	</script>	
 </body>
 </html>

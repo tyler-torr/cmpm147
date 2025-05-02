@@ -15,12 +15,18 @@
 */
 
 // Only use p5 instance for `setup()` to set canvas parent
-new p5(function(p) {
-  p.setup = function() {
-    const canvas = p.createCanvas(400, 400);
-    canvas.parent("canvas-container-3"); // Important!
-  };
-});
+const sketch3 = (p) => {
+	p.setup = function () {
+		p.createCanvas(400, 600, p.WEBGL);
+	};
+
+	p.draw = function () {
+		p.background(200);
+		p.rotateX(p.frameCount * 0.01);
+		p.rotateY(p.frameCount * 0.01);
+		p.box(50); // no conflict because it's instance-based
+	};
+};
 
 function p3_preload() {}
 

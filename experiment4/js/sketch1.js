@@ -17,7 +17,7 @@
 // Only use p5 instance for `setup()` to set canvas parent
 new p5(function(p) {
   p.setup = function() {
-    const canvas = p.createCanvas(400, 400);
+    const canvas = p.createCanvas(400, 600);
     canvas.parent("canvas-container"); // Important!
   };
 });
