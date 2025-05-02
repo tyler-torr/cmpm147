@@ -27,9 +27,6 @@ function p3_preload() {}
 function p3_setup() {}
 
 let worldSeed;
-let splashes = []; 
-let noiseScale = 0.2;
-let waveInfluence = 5;
 
 function p3_worldKeyChanged(key) {
   worldSeed = XXH.h32(key, 0);
@@ -85,8 +82,6 @@ function getTileType(i, j) {
   if (n < 0.6969) return "port";
   return "land";
 }
-
-function p3_drawBefore() {}
 
 function p3_drawTile(i, j) {
   noStroke();
