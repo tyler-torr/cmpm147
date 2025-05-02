@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 4 - Infinite Worlds Sailing</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+    <script type="text/javascript" src="../js/site.js" DEFER></script>
+	<script src="js/xxhash.min.js" defer></script>
+	<script src="js/project.js" defer></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+
+			<h1>Experiment 4 - Infinite Worlds Sailing</h1>
+
+			<div class="minor-section">
+				<h2>Infinite Sailing</h2>
+				<button id="toggle-projects">Next</button>
+				<div id="canvas-container"></div>
+				<div id="canvas-container-2"></div>
+				<div id="canvas-container-3"></div>
+                <div class="fullscreen-box">
+                    <button id="fullscreen">Fullscreen</button>
+                </div>
+				<button id="clicker">Reroll the Prompt!</button>
+    			<div id="box"></div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Description</h2>
+				<p>Generates an endless ocean (or lava!) with a variety of islands scattered around the world. As you look around using the Arrow Keys and time passes on, 
+					waves will push through the seas, starting and stopping at random points. Click on any part of the island to dig, and potentially find coins for treasure!
+				</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p></p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>It took a long time brainstorming with Jason (who I worked with) to figure out how this project would work, but once it did it was fun to work on an isometric grid. Making the ocean feel alive
+					with featurecreep and multiple cups of coffee was fun. Digging could've been touched on a bit more by me, but otherwise I'm happy with how this turned out; the world feels very organic
+					while still being boundless.
+				</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<!-- Put link back to homepage here. -->
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+		</nav>
+	</main>
+</body>
+</html>
