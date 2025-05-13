@@ -4,49 +4,49 @@ function getInspirations() {
   return [
     {
       name: "Lunch atop a Skyscraper", 
-      assetUrl: "img/lunch-on-a-skyscraper.jpg",
+      assetUrl: "img\lunch-on-a-skyscraper.jpg",
       credit: "Lunch atop a Skyscraper, Charles Clyde Ebbets, 1932",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Train Wreck", 
-      assetUrl: "img/train-wreck.jpg",
+      assetUrl: "img\train-wreck.jpg",
       credit: "Train Wreck At Monteparnasse, Levy & fils, 1895",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Migrant mother", 
-      assetUrl: "img/migrant-mother.jpg",
+      assetUrl: "img\migrant-mother.jpg",
       credit: "Migrant Mother near Nipomo, California, Dorothea Lange, 1936",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Disaster Girl", 
-      assetUrl: "img/girl-with-fire.jpg",
+      assetUrl: "img\girl-with-fire.jpg",
       credit: "Four-year-old Zoë Roth, 2005",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Red Ball", 
-      assetUrl: "img/redball.jpg",
+      assetUrl: "img\redball.jpg",
       credit: "ar.inspiredpencil.com",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Pork Steak", 
-      assetUrl: "img/porksteak.jpg",
+      assetUrl: "img\porksteak.jpg",
       credit: "www.istockphoto.com",
       style: "width: 300px; height: auto;"
     },
     {
       name: "On A Walk", 
-      assetUrl: "img/on-a-walk.png",
+      assetUrl: "img\on-a-walk.png",
       credit: "https://x.com/iloli_i8g",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Delicious Burger", 
-      assetUrl: "img/delicious-burger.png",
+      assetUrl: "img\delicious-burger.png",
       credit: "Tyler's Phone (He cooked it himself)",
       style: "width: 300px; height: auto;"
     },
