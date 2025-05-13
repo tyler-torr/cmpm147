@@ -40,13 +40,13 @@ function getInspirations() {
     },
     {
       name: "On A Walk", 
-      assetUrl: "img/on-a-walk.jpg",
+      assetUrl: "img/on-a-walk.png",
       credit: "https://x.com/iloli_i8g",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Delicious Burger", 
-      assetUrl: "img/delicious-burger.jpg",
+      assetUrl: "img/delicious-burger.png",
       credit: "Tyler's Phone (He cooked it himself)",
       style: "width: 300px; height: auto;"
     },
