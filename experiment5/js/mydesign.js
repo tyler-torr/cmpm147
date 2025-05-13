@@ -28,7 +28,7 @@ function getInspirations() {
     },
     {
       name: "Red Ball", 
-      assetUrl: "img/redbal.jpg",
+      assetUrl: "img/redball.jpg",
       credit: "ar.inspiredpencil.com",
       style: "width: 300px; height: auto;"
     },
