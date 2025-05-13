@@ -4,49 +4,49 @@ function getInspirations() {
   return [
     {
       name: "Lunch atop a Skyscraper", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/lunch-on-a-skyscraper.jpg?v=1714798266994",
+      assetUrl: "img/lunch-on-a-skyscraper.jpg",
       credit: "Lunch atop a Skyscraper, Charles Clyde Ebbets, 1932",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Train Wreck", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/train-wreck.jpg?v=1714798264965",
+      assetUrl: "img/train-wreck.jpg",
       credit: "Train Wreck At Monteparnasse, Levy & fils, 1895",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Migrant mother", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/migrant-mother.jpg?v=1714778906791",
+      assetUrl: "img/migrant-mother.jpg",
       credit: "Migrant Mother near Nipomo, California, Dorothea Lange, 1936",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Disaster Girl", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/girl-with-fire.jpg?v=1714778905663",
+      assetUrl: "img/girl-with-fire.jpg",
       credit: "Four-year-old Zoë Roth, 2005",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Red Ball", 
-      assetUrl: "https://cdn.glitch.global/d319d726-b0e9-41a4-831d-50c21de8477a/redball.jpg?v=1746765248067",
+      assetUrl: "img/redbal.jpg",
       credit: "ar.inspiredpencil.com",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Pork Steak", 
-      assetUrl: "https://cdn.glitch.global/d319d726-b0e9-41a4-831d-50c21de8477a/porksteak.jpg?v=1746779122198",
+      assetUrl: "img/porksteak.jpg",
       credit: "www.istockphoto.com",
       style: "width: 300px; height: auto;"
     },
     {
       name: "On A Walk", 
-      assetUrl: "https://cdn.glitch.global/d319d726-b0e9-41a4-831d-50c21de8477a/thumbnails%2FSaturday.png?1746773070345",
+      assetUrl: "img/on-a-walk.jpg",
       credit: "https://x.com/iloli_i8g",
       style: "width: 300px; height: auto;"
     },
     {
       name: "Delicious Burger", 
-      assetUrl: "https://cdn.glitch.global/d319d726-b0e9-41a4-831d-50c21de8477a/thumbnails%2FScreenshot%202025-02-16%20195150.png?1746773050059",
+      assetUrl: "img/delicious-burger.jpg",
       credit: "Tyler's Phone (He cooked it himself)",
       style: "width: 300px; height: auto;"
     },
